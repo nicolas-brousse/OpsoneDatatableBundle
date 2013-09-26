@@ -1,0 +1,31 @@
+{
+    "name": "opsone/datatable-bundle",
+    "type": "symfony-bundle",
+    "description": "Datatable for Symfony2",
+    "keywords": ["datatable"],
+    "homepage": "https://github.com/opsone/DatatableBundle",
+    "support": {
+        "issues": "https://github.com/opsone/DatatableBundle/issues",
+        "source": "https://github.com/opsone/DatatableBundle"
+    },
+    "authors": [
+        {
+            "name": "Nicolas Brousse",
+            "email": "nicolas@opsone.net"
+        },
+        {
+            "name": "Kevyn Lebouille",
+            "email": "kevyn@opsone.net"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Opsone\\Bundle\\DatatableBundle": "src/"
+        }
+    },
+    "target-dir": "Opsone/Bundle/DatatableBundle"
+}
