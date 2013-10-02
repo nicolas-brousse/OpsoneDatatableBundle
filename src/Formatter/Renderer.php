@@ -3,7 +3,7 @@
 namespace Opsone\Datatable\Formatter;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\Util\Inflector;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Renderer
 {
@@ -24,6 +24,11 @@ class Renderer
     protected $fields = array();
 
     /**
+     * @var \Symfony\Component\PropertyAccess\PropertyAccessor;
+     */
+    protected $propertyAccessor;
+
+    /**
      * @var int
      */
     protected $identifier_index = '_identifier_';
@@ -40,6 +45,7 @@ class Renderer
         $this->container = $container;
         $this->template = $template;
         $this->fields = $fields;
+        $this->propertyAccessor = PropertyAccess::getPropertyAccessor();
         $this->prepare();
     }
 
@@ -109,12 +115,10 @@ class Renderer
 
             foreach ($fields as $column_index => $field)
             {
-                $method = "get" . Inflector::classify( substr($field[1], strpos($field[1], '.') + 1) );
-
                 $params = array(
                     'index'  => $column_index,
                     'key'    => $field[0],
-                    'value'  => method_exists($entity, $method) ? call_user_func(array($entity, $method)) : null,
+                    'value'  => $this->propertyAccessor->getValue($entity, $field),
                     'entity' => $entity,
                 );
                 $formated_datas[$row_index][$column_index] = $this->applyView($params);
